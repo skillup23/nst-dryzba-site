@@ -23,7 +23,7 @@ const HomePage = async () => {
         </>
       ) : (
         <h1 className="text-3xl my-2">
-          Добро пожаловать, {session?.user?.role}
+          Добро пожаловать, {session?.user?.name}
         </h1>
       )}
 

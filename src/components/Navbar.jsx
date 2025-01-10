@@ -20,19 +20,36 @@ const Navbar = async () => {
         <ul className="flex pt-1">
           {userName ? (
             <li className="flex">
-              <Link href="/dashboard">
-                {session?.user?.image ? (
-                  <Image
-                    src={session?.user?.image}
-                    alt={session?.user?.name}
-                    width={25}
-                    height={25}
-                    className="rounded-full"
-                  />
-                ) : (
-                  <CircleUserRound />
-                )}
-              </Link>
+              {session?.user.role === 'admin' ? (
+                <Link href="/dashboard">
+                  {session?.user?.image ? (
+                    <Image
+                      src={session?.user?.image}
+                      alt={session?.user?.name}
+                      width={25}
+                      height={25}
+                      className="rounded-full"
+                    />
+                  ) : (
+                    <CircleUserRound />
+                  )}
+                </Link>
+              ) : (
+                <Link href="/home">
+                  {session?.user?.image ? (
+                    <Image
+                      src={session?.user?.image}
+                      alt={session?.user?.name}
+                      width={25}
+                      height={25}
+                      className="rounded-full"
+                    />
+                  ) : (
+                    <CircleUserRound />
+                  )}
+                </Link>
+              )}
+
               <span className="mx-1">|</span>
               <Logout />
             </li>
