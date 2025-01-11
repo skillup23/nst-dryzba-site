@@ -1,31 +1,19 @@
-import Image from 'next/image';
-import Logout from '@/components/Logout';
-import { auth } from '@/auth';
-import { redirect } from 'next/navigation';
+import { auth } from "@/auth";
+import Logout from "@/components/Logout";
+import { revalidatePath } from "next/cache";
 
 const HomePage = async () => {
   const session = await auth();
 
-  if (!session?.user) redirect('/');
+  if (!session?.user) {
+    redirect("/");
+  } else {
+    revalidatePath("/home", "layout");
+  }
 
   return (
     <div className="flex flex-col items-center m-4">
-      {session?.user?.image && session?.user?.name ? (
-        <>
-          <h1 className="text-3xl my-2">Welcome, {session?.user?.name}</h1>
-          <Image
-            src={session?.user?.image}
-            alt={session?.user?.name}
-            width={72}
-            height={72}
-            className="rounded-full"
-          />
-        </>
-      ) : (
-        <h1 className="text-3xl my-2">
-          Добро пожаловать, {session?.user?.name}
-        </h1>
-      )}
+      <h1 className="text-3xl my-2">Добро пожаловать, {session?.user?.name}</h1>
 
       <Logout />
     </div>

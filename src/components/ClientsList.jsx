@@ -1,7 +1,7 @@
-'use client';
+"use client";
 
-import { updateClient } from '@/queries/clients';
-import { useState, useEffect } from 'react';
+import { updateClient } from "@/queries/clients";
+import { useEffect, useState } from "react";
 
 export default function ClientsList({ arh }) {
   const [isClient, setIsClient] = useState(false);
@@ -32,10 +32,10 @@ export default function ClientsList({ arh }) {
                   defaultValue={client.name}
                 />
                 <input
-                  type="email"
-                  name="email"
+                  type="tel"
+                  name="tel"
                   required
-                  defaultValue={client.email}
+                  defaultValue={client.tel}
                 />
                 <select name="role" defaultValue={client.role}>
                   <option value="user">user</option>
@@ -47,7 +47,7 @@ export default function ClientsList({ arh }) {
           ))}
         </ul>
       ) : (
-        'Загрузка данных...'
+        "Загрузка данных..."
       )}
     </>
   );

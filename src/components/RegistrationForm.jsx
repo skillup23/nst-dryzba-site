@@ -1,6 +1,6 @@
-'use client';
+"use client";
 
-import { useRouter } from 'next/navigation';
+import { useRouter } from "next/navigation";
 
 const RegistrationForm = () => {
   const router = useRouter();
@@ -12,27 +12,27 @@ const RegistrationForm = () => {
       //получаем значения полей ввода
       const formData = new FormData(event.currentTarget);
 
-      const name = formData.get('name');
-      const email = formData.get('email');
-      const password = formData.get('password');
-      const role = 'user';
+      const name = formData.get("name");
+      const email = formData.get("phone");
+      const password = formData.get("password");
+      const role = "user";
 
       //Отправляем POST запрос с данными в серверный компонент
       const response = await fetch(`/api/register`, {
-        method: 'POST',
+        method: "POST",
         headers: {
-          'content-type': 'application/json',
+          "content-type": "application/json",
         },
         body: JSON.stringify({
           name,
-          email,
+          tel,
           password,
           role,
         }),
       });
 
       //если регистрация успешна то перенаправь пользователя на страницу входа
-      response.status === 201 && router.push('/login');
+      response.status === 201 && router.push("/login");
     } catch (error) {
       console.log(error);
     }
@@ -44,7 +44,7 @@ const RegistrationForm = () => {
         onSubmit={handleSubmit}
       >
         <div className="my-2">
-          <label htmlFor="name">Имя пользователя</label>
+          <label htmlFor="name">ФИО</label>
           <input
             className="border mx-2 border-gray-500 rounded"
             type="text"
@@ -54,12 +54,12 @@ const RegistrationForm = () => {
         </div>
 
         <div className="my-2">
-          <label htmlFor="email">Email</label>
+          <label htmlFor="tel">Телефон</label>
           <input
             className="border mx-2 border-gray-500 rounded"
-            type="email"
-            name="email"
-            id="email"
+            type="tel"
+            name="tel"
+            id="tel"
           />
         </div>
 

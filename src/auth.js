@@ -1,10 +1,8 @@
-import NextAuth from 'next-auth';
-import GoogleProvider from 'next-auth/providers/google';
-import GitHubProvider from 'next-auth/providers/github';
-import CredentialsProvider from 'next-auth/providers/credentials';
-import { User } from './model/user-model';
-import bcrypt from 'bcryptjs';
-import { authConfig } from './auth.config';
+import bcrypt from "bcryptjs";
+import NextAuth from "next-auth";
+import CredentialsProvider from "next-auth/providers/credentials";
+import { authConfig } from "./auth.config";
+import { User } from "./model/user-model";
 
 export const {
   handlers: { GET, POST },
@@ -21,7 +19,7 @@ export const {
         try {
           //Соотносим user с email в БД
           const user = await User.findOne({
-            email: credentials?.email,
+            tel: credentials?.tel,
           });
 
           //Если пользователь есть в БД
@@ -36,11 +34,11 @@ export const {
             if (isMatch) {
               return user;
             } else {
-              throw new Error('Неверный пользователь или пароль');
+              throw new Error("Неверный пользователь или пароль");
             }
             //Если пользователь не существует, то возвращаем ошибку
           } else {
-            throw new Error('Неверный пользователь или пароль');
+            throw new Error("Неверный пользователь или пароль");
           }
           //Ошибка если не смогли получить данные
         } catch (error) {
@@ -48,7 +46,7 @@ export const {
         }
       },
       profile(profile) {
-        return { role: profile.role ?? 'user' };
+        return { role: profile.role ?? "user" };
       },
     }),
     //Google и GitHub авторизация

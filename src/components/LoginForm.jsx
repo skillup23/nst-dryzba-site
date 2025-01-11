@@ -1,8 +1,8 @@
-'use client';
+"use client";
 
-import { doCredentialLogin } from '@/app/actions';
-import { useRouter } from 'next/navigation';
-import { useState, useEffect } from 'react';
+import { doCredentialLogin } from "@/app/actions";
+import { useRouter } from "next/navigation";
+import { useEffect, useState } from "react";
 
 const LoginForm = () => {
   //Начало ошибки гидратации https://nextjs.org/docs/messages/react-hydration-error
@@ -13,7 +13,7 @@ const LoginForm = () => {
   }, []);
   //Конец ошибки гидратации
 
-  const [error, setError] = useState('');
+  const [error, setError] = useState("");
   const router = useRouter();
 
   async function handleFormSubmit(event) {
@@ -30,11 +30,12 @@ const LoginForm = () => {
         setError(response.error.message);
         //если нет ошибок, то перенаправляем на домашнюю страницу
       } else {
-        router.push('/products');
+        router.push("/home");
+        // router.reload("/home")
       }
     } catch (e) {
       console.error(e);
-      setError('Проверьте имя пользователя или пароль');
+      setError("Проверьте правильность телефона или пароля");
     }
   }
 
@@ -48,12 +49,12 @@ const LoginForm = () => {
             onSubmit={handleFormSubmit}
           >
             <div className="my-2">
-              <label htmlFor="email">Email Address</label>
+              <label htmlFor="tel">Телефон</label>
               <input
                 className="border mx-2 border-gray-500 rounded"
-                type="email"
-                name="email"
-                id="email"
+                type="tel"
+                name="tel"
+                id="tel"
               />
             </div>
 
@@ -76,7 +77,7 @@ const LoginForm = () => {
           </form>
         </div>
       ) : (
-        ''
+        "Загрузка компонента"
       )}
     </>
   );
