@@ -2,3 +2,19 @@
 @tailwind components;
 @tailwind utilities;
 
+::-webkit-scrollbar {
+  width: 12px; /* ширина scrollbar */
+  height: 20px;
+}
+::-webkit-scrollbar-track {
+  background: rgb(203, 203, 203); /* цвет дорожки */
+}
+::-webkit-scrollbar-thumb {
+  background-color: #0f162a; /* цвет плашки */
+  border-radius: 0px; /* закругления плашки */
+  border: 3px solid rgb(203, 203, 203); /* padding вокруг плашки */
+}
+
+.input-table {
+  @apply w-full h-6 px-1 border;
+}

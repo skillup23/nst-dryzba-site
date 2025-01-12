@@ -1,14 +1,45 @@
-import { NextResponse } from 'next/server';
-import { createUser } from '@/queries/users';
+import { createUser } from "@/queries/users";
+import { NextResponse } from "next/server";
 
-import bcrypt from 'bcryptjs';
-import { dbConnect } from '@/lib/mongo';
+import { dbConnect } from "@/lib/mongo";
+import bcrypt from "bcryptjs";
 
 export const POST = async (request) => {
   //Ожидаем данные с RegistrationForm
-  const { name, email, password, role } = await request.json();
+  const {
+    name,
+    tel,
+    password,
+    plaseLiving,
+    street,
+    house,
+    carModel,
+    carNumber,
+    carColor,
+    total,
+    lastpay,
+    datepay,
+    datestop,
+    stats,
+    role,
+  } = await request.json();
 
-  // console.log(name, email, password, role);
+  // console.log(
+  //   name,
+  //   tel,
+  //   password,
+  //   plaseLiving,
+  //   street,
+  //   house,
+  //   carModel,
+  //   carNumber,
+  //   carColor,
+  //   total,
+  //   lastpay,
+  //   datepay,
+  //   stats,
+  //   role
+  // );
 
   //Создать соединение с mongodb
   await dbConnect();
@@ -20,7 +51,18 @@ export const POST = async (request) => {
   const newUser = {
     name,
     password: hashedPassword,
-    email,
+    tel,
+    plaseLiving,
+    street,
+    house,
+    carModel,
+    carNumber,
+    carColor,
+    total,
+    lastpay,
+    datepay,
+    datestop,
+    stats,
     role,
   };
 
@@ -33,7 +75,7 @@ export const POST = async (request) => {
     });
   }
 
-  return new NextResponse('Пользователь создан', {
+  return new NextResponse("Пользователь создан", {
     status: 201,
   });
 };

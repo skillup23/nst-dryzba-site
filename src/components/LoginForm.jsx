@@ -31,7 +31,8 @@ const LoginForm = () => {
         //если нет ошибок, то перенаправляем на домашнюю страницу
       } else {
         router.push("/home");
-        // router.reload("/home")
+        // router.reload();
+        // revalidatePath("/", "layout");
       }
     } catch (e) {
       console.error(e);

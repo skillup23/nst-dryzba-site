@@ -1,7 +1,7 @@
-import { NextResponse } from 'next/server';
-import { auth } from '@/auth';
-import { getUserByEmail } from '@/queries/users';
-import { dbConnect } from '@/lib/mongo';
+import { auth } from "@/auth";
+import { dbConnect } from "@/lib/mongo";
+import { getUserByEmail } from "@/queries/users";
+import { NextResponse } from "next/server";
 
 export const GET = async (request) => {
   const session = await auth();
@@ -18,7 +18,7 @@ export const GET = async (request) => {
 
   //и попробовать получить данные пользователя используя его email
   try {
-    const user = await getUserByEmail(session?.user?.email);
+    const user = await getUserByEmail(session?.user?.tel);
     return new NextResponse(JSON.stringify(user), {
       status: 200,
     });

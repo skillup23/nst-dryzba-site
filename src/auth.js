@@ -76,10 +76,12 @@ export const {
   callbacks: {
     jwt({ token, user }) {
       if (user) token.role = user.role;
+      if (user) token.tel = user.tel;
       return token;
     },
     session({ session, token }) {
       session.user.role = token.role;
+      session.user.tel = token.tel;
       return session;
     },
   },

@@ -1,9 +1,9 @@
-import Link from 'next/link';
-import Image from 'next/image';
-import { auth } from '@/auth';
-import Logout from './Logout';
+import { auth } from "@/auth";
+import Image from "next/image";
+import Link from "next/link";
+import Logout from "./Logout";
 
-import { CircleUserRound } from 'lucide-react';
+import { CircleUserRound } from "lucide-react";
 
 const Navbar = async () => {
   const session = await auth();
@@ -12,15 +12,15 @@ const Navbar = async () => {
   const userName = loggedInUser?.name;
 
   return (
-    <header className="flex justify-between bg-slate-900 text-white p-2">
+    <header className="flex justify-between items-center bg-slate-900 text-white p-3">
       <Link href="/">
-        <h1 className="text-2xl">Product App</h1>
+        <h1 className="text-xl">НСТ Дружба</h1>
       </Link>
       <nav>
-        <ul className="flex pt-1">
+        <div className="flex">
           {userName ? (
-            <li className="flex">
-              {session?.user.role === 'admin' ? (
+            <div className="flex items-center">
+              {session?.user.role === "admin" ? (
                 <Link href="/dashboard">
                   {session?.user?.image ? (
                     <Image
@@ -52,18 +52,15 @@ const Navbar = async () => {
 
               <span className="mx-1">|</span>
               <Logout />
-            </li>
+            </div>
           ) : (
-            <>
-              <li className="mx-2">
-                <Link href="/login">Login</Link>
-              </li>
-              <li className="mx-2">
-                <Link href="/register">Register</Link>
-              </li>
-            </>
+            <div className="flex gap-4">
+              <Link href="/login">Войти</Link>
+
+              <Link href="/register">Регистрация</Link>
+            </div>
           )}
-        </ul>
+        </div>
       </nav>
     </header>
   );

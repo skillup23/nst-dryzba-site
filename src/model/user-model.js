@@ -30,7 +30,7 @@ const userSchema = new Schema(
       required: false,
       type: String,
     },
-    status: {
+    stats: {
       required: false,
       type: String,
     },
@@ -55,6 +55,10 @@ const userSchema = new Schema(
       type: Number,
     },
     datepay: {
+      type: Date,
+      required: true,
+    },
+    datestop: {
       type: Date,
       required: true,
     },
