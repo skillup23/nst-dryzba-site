@@ -1,17 +1,25 @@
-"use client";
+'use client';
 
-import { updateClient } from "@/queries/clients";
-import { useEffect, useRef, useState } from "react";
+import { updateClient } from '@/queries/clients';
+import { useEffect, useRef, useState } from 'react';
 
 export default function ClientsList({ arh }) {
   const [isClient, setIsClient] = useState(false);
+  const [clients, setClients] = useState([]);
   useEffect(() => {
     setIsClient(true);
   }, []);
 
-  const formRef = useRef(null);
+  // Загрузка задач
+  useEffect(() => {
+    const fetchTasks = async () => {
+      const data = await arh;
+      setClients(data);
+    };
+    fetchTasks();
+  }, [arh]);
 
-  const clients = arh;
+  const formRef = useRef(null);
 
   function setDayPay(day) {
     const currentDate = new Date(day);
@@ -175,7 +183,7 @@ export default function ClientsList({ arh }) {
           ))}
         </ul>
       ) : (
-        "Загрузка данных..."
+        'Загрузка данных...'
       )}
     </>
   );

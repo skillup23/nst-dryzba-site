@@ -1,20 +1,21 @@
-import { auth } from "@/auth";
-import Logout from "@/components/Logout";
-import { getUserByTel } from "@/queries/users";
-import { revalidatePath } from "next/cache";
-import Link from "next/link";
-import { redirect } from "next/navigation";
+import { auth } from '@/auth';
+import Logout from '@/components/Logout';
+import TelegramSender from '@/components/TelegramSender';
+import { getUserByTel } from '@/queries/users';
+import { revalidatePath } from 'next/cache';
+import Link from 'next/link';
+import { redirect } from 'next/navigation';
 
 const HomePage = async () => {
   const session = await auth();
   if (!session?.user) {
-    redirect("/");
+    redirect('/');
   } else {
-    revalidatePath("/", "layout");
+    revalidatePath('/', 'layout');
   }
 
   const data = await getUserByTel(session?.user?.tel);
-  const client = JSON.parse(JSON.stringify(data));
+  const client = await JSON.parse(JSON.stringify(data));
 
   // function diffDays(time) {
   //   const date1 = new Date();
@@ -41,7 +42,7 @@ const HomePage = async () => {
     dateEnd = diffDays;
   }
 
-  const deadline = date2.toLocaleDateString("ru-RU");
+  const deadline = date2.toLocaleDateString('ru-RU');
 
   // const balance = client.lastpay - dateEnd * 2.5;
 
@@ -52,12 +53,12 @@ const HomePage = async () => {
         <br /> {session?.user?.name}
       </h1>
 
-      {session?.user.role === "admin" ? (
+      {session?.user.role === 'admin' ? (
         <Link href="/dashboard" className="p-2 bg-slate-500">
           Панель управления
         </Link>
       ) : (
-        ""
+        ''
       )}
 
       <ul className="w-full my-2 flex flex-col gap-2 text-base">
@@ -99,11 +100,13 @@ const HomePage = async () => {
             {client.carColor}
           </p>
         </li>
-        {/* <li className="w-full flex justify-between text-base">
+        <li className="w-full flex justify-between text-base">
           <h6>Последний платеж:</h6>
           <p>{client.lastpay} ₽</p>
-        </li> */}
+        </li>
       </ul>
+
+      <TelegramSender />
 
       <Logout />
     </div>
